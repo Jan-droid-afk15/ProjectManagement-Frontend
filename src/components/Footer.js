@@ -30,7 +30,7 @@ export default function Footer() {
   >
     <Box sx={{   py: 3,
       px: 2,
-      mt: 'auto',ml:-16, bgcolor: '#1E1D1D', p: 6, width: '100rem' }} component="footer">
+      mt: 'auto',ml:-16, bgcolor: '#1E1D1D', p: 6, width: '103rem' }} component="footer">
     <Typography color="white" variant="h6" align="center" gutterBottom>
       Footer
     </Typography>

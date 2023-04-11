@@ -1,24 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import CssBaseline from '@mui/material/CssBaseline';
+import ReactDOM from 'react-dom';
 import App from './App';
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import Store from "./Redux/Store";
+import {Provider} from "react-redux";
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import './components/Modals/EditCardModal/Popovers/Date/DateRange.css';
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CssBaseline />
+    <Provider store={Store}>
     <App />
-  </React.StrictMode>
-);
+    </Provider>
+  </React.StrictMode>,
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+);
 

@@ -1,4 +1,5 @@
-import * as React from "react";
+import * as React  from "react";
+import { useEffect }from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -21,6 +22,8 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import LoginIcon from "@mui/icons-material/Login";
 import NetworkCheckIcon from "@mui/icons-material/NetworkCheck";
 import CreateIcon from "@mui/icons-material/Create";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PersonIcon from '@mui/icons-material/Person';
 
 //List For Drawer
 import ListItem from "@mui/material/ListItem";
@@ -35,8 +38,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import { Container } from "@mui/system";
- 
+import { logout } from '../Redux/Slices/userSlice';
+import { reset } from '../Redux/Slices/boardsSlice';
+
+import { useParams } from 'react-router-dom';
+import { getUserData } from '../Services/userService';
 
 const drawerWidth = 185;
 
@@ -110,9 +118,12 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MiniDrawer(props) {
   const navigate = useNavigate();
-
-  const logout = () => {
-    props.onAuthenticated(false);
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.user);
+  const { loadUser } = props;
+  const handleLogout = () => {
+    dispatch(reset());
+    dispatch(logout());
     navigate("/");
   };
   
@@ -138,8 +149,7 @@ export default function MiniDrawer(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
+  
   const itemsList = [
     {
       text: "Login",
@@ -176,9 +186,20 @@ export default function MiniDrawer(props) {
       to: "/",
     },
     {
+      text: "Profile",
+      icon: <PersonIcon style={{ fill: "white" }} />,
+      to: "get-user/id"
+    },
+    
+    {
       text: "Dashboard",
       icon: <DashboardIcon style={{ fill: "white" }} />,
-      to: "/internets",
+      to: "/dashboard",
+    },
+    {
+      text: "Calendar",
+      icon: <CalendarMonthIcon style={{ fill: "white" }} />,
+      to: "/calendar",
     },
     {
       text: "Create",
@@ -263,7 +284,7 @@ export default function MiniDrawer(props) {
                 onClose={handleClose}
               >
                 {/* <p>{{user}}</p>  supposed to display user info from token*/}
-                <MenuItem onClick={logout}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 {pages.map((page) => (
                 <MenuItem key={page}>
                   <Typography textAlign="center">{page}</Typography>
@@ -275,7 +296,7 @@ export default function MiniDrawer(props) {
         </Toolbar>
   
       
-      <Drawer variant="permanent" open={open}
+      <Drawer loadUser={loadUser} variant="permanent" open={open}
         PaperProps={{
             style: {
             backgroundColor: "#1E1D1D",
@@ -392,7 +413,7 @@ export default function MiniDrawer(props) {
           
           <br></br>
           <IconButton
-              onClick={logout}
+              onClick={handleLogout}
               
               sx={{ml:1.5, color:"white",}}
               >
