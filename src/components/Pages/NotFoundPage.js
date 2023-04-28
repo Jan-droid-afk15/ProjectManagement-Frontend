@@ -1,11 +1,11 @@
 import React from "react";
 import {  useNavigate } from "react-router-dom";
-
+import { useParams } from "react";
 const NotFoundPage = () => {
   const navigate = useNavigate();
-
+  const id = useParams();
   const handleClick = () => {
-    navigate("/");
+    navigate(`/boards/${id}`);
   };
 
   return (

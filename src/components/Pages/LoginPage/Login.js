@@ -34,6 +34,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(userInformations, dispatch);
+    navigate("/boards")
   };
   return (
     <>
@@ -72,7 +73,7 @@ const Login = () => {
                   })
                 }
               />
-              <Button>Log in</Button>
+              <Button >Log in</Button>
               <Hr />
               <Link
                 fontSize="0.85rem"

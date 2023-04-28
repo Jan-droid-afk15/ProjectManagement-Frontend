@@ -11,9 +11,10 @@ import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/Slices/userSlice';
 import { reset } from '../Redux/Slices/boardsSlice';
-
+import { useNavigate } from "react-router-dom";
 export default function ProfileBox() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
   const name = useSelector((state) => state.user.userInfo.name);
@@ -30,6 +31,7 @@ export default function ProfileBox() {
   const handleLogout = () => {
     dispatch(reset());
     dispatch(logout());
+    navigate("/");
   };
 
   return (

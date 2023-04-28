@@ -11,9 +11,10 @@ import Store from "./Redux/Store";
 import FreeRoute from "./Utils/FreeRoute";
 import Board from "./components/Pages/BoardPage/Board";
 import Profile from "./components/Pages/ProfilePage/Profile";
-import Calendar from "./components/Calendar";
+import Calendar from "./components/Pages/CalendarPage/Calendar";
 import Dashboard from "./components/Pages/DashboardPage/Dashboard";
 import NotFoundPage from "./components/Pages/NotFoundPage";
+import TableComponent from "./components/TablePage/TableComponent";
 
 const App = () => {
   useEffect(() => {
@@ -29,6 +30,12 @@ const App = () => {
   const ProtectedProfile = () => (
     <ProtectedRoute>
       <Profile />
+    </ProtectedRoute>
+  );
+
+  const ProtectedTable = () => (
+    <ProtectedRoute>
+      <TableComponent />
     </ProtectedRoute>
   );
 
@@ -55,9 +62,10 @@ const App = () => {
       <Alert />
       <Routes>
         <Route path="/" element={<FreeRoute> <Index/> </FreeRoute>} />
-        <Route path="/calendar" element={<ProtectedCalendar />} loadUser={loadUser}/>
+        <Route path="/calendar/:id" element={<ProtectedCalendar />} loadUser={loadUser}/>
+        <Route path="/table/:id" element={<ProtectedTable />} loadUser={loadUser}/>
         <Route path="/get-user/:id" element={<ProtectedProfile loadUser={loadUser} />} />
-        <Route path="/dashboard" element={<ProtectedDashboard loadUser={loadUser} />} />
+        <Route path="/dashboard/:id" element={<ProtectedDashboard loadUser={loadUser}  />} />
         <Route path="/boards" element={<ProtectedBoards />} />
         <Route path="/board/:id" element={<ProtectedBoard />}  />
         <Route path="/login" element={<FreeRoute> <Login/> </FreeRoute>} />

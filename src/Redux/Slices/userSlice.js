@@ -1,8 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+
+export const updateUserDetails = createAsyncThunk(
+  "user/updateUserDetails",
+  async ({ id, name, surname, email, password }, thunkAPI) => {
+    try {
+      const response = await updateUser(id, { name, surname, email, password });
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 
 const initialState = {
   userInfo: null,
+  userId: null, 
   isAuthenticated: null,
   pending: true,
   loading: false,
@@ -35,6 +49,7 @@ export const userSlice = createSlice({
       state.userInfo = action.payload.user;
       state.token = action.payload.user.token;
       localStorage.setItem("token", action.payload.user.token);
+      state.userId = action.payload.user._id; 
 
     },
     loginFailure: (state) => {
@@ -68,7 +83,23 @@ export const userSlice = createSlice({
     },
     addNewBoard: (state,action) => {
       state.userInfo.boards.unshift(action.payload);
-    }
+    },
+    updateUser: (state, action) => {
+      state.userInfo = action.payload;
+    },
+    extraReducers: {
+      [updateUserDetails.pending]: (state) => {
+        state.loading = true;
+      },
+      [updateUserDetails.fulfilled]: (state, action) => {
+        state.loading = false;
+        state.userInfo = action.payload;
+      },
+      [updateUserDetails.rejected]: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+    },
   },
 });
 
@@ -86,6 +117,7 @@ export const {
   logout,
   fetchingStart,
   fetchingFinish,
-  addNewBoard
+  addNewBoard,
+  updateUser
 } = userSlice.actions;
 export default userSlice.reducer;

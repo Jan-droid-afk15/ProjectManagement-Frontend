@@ -40,6 +40,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await register(userInformations, dispatch);
+    navigate("/login")
   };
 
   return (
@@ -124,7 +125,7 @@ const Register = () => {
                 Complete
               </Button>
               <Hr />
-              <Link fontSize="0.85rem" onClick={() => navigate.push("/login")}>
+              <Link fontSize="0.85rem" onClick={() => navigate("/login")}>
                 Already have an account? Log In
               </Link>
             </Form>

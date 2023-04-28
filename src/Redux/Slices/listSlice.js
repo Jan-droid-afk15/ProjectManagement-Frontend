@@ -21,15 +21,6 @@ const listSlice = createSlice({
 		successDeletingList: (state, action) => {
 			state.allLists = state.allLists.filter((list) => list._id !== action.payload);
 		},
-		deleteCard: (state,action)=> {
-			const {listId,cardId} = action.payload;
-			state.allLists = state.allLists.map((list) => {
-				if(list._id === listId){
-					list.cards = list.cards.filter(card=> card._id !== cardId);					
-				}
-				return list;
-			});
-		},
 		successCreatingCard: (state, action) => {
 			state.allLists = state.allLists.map((list) => {
 				if (list._id === action.payload.listId) {
@@ -38,6 +29,53 @@ const listSlice = createSlice({
 				return list;
 			});
 		},
+		successCreatingCardEvent: (state, action) => {
+			const { listId, card, eventId } = action.payload;
+			state.allLists = state.allLists.map((list) => {
+			  if (list._id === listId) {
+				list.cards = [...list.cards, card];
+			  }
+			  return list;
+			});
+			if (eventId) {
+			  // Add new event to the calendar
+			  const newEvent = {
+				id: eventId,
+				title: card.title,
+				start: new Date(),
+				end: new Date(),
+				allDay: true,
+			  };
+			  state.allLists = state.allLists.map((list) => {
+				if (list._id === listId) {
+				  list.events = [...list.events, newEvent];
+				}
+				return list;
+			  });
+			}
+		  },
+		  deleteCard: (state,action)=> {
+			const {listId,cardId} = action.payload;
+			state.allLists = state.allLists.map((list) => {
+				if(list._id === listId){
+					list.cards = list.cards.filter(card=> card._id !== cardId);					
+				}
+				return list;
+			});
+		},
+		  deleteCardEvent: (state, action) => {
+			const { listId, cardId, eventId } = action.payload;
+			state.allLists = state.allLists.map((list) => {
+			  if (list._id === listId) {
+				list.cards = list.cards.filter((card) => card._id !== cardId);
+				if (eventId) {
+				  // Delete the corresponding event from the calendar
+				  list.events = list.events.filter((event) => event.id !== eventId);
+				}
+			  }
+			  return list;
+			});
+		  },
 		updateCardDragDrop: (state, action) => {
 			state.allLists = action.payload;
 		},
@@ -367,7 +405,9 @@ export const {
 	successFetchingLists,
 	successDeletingList,
 	deleteCard,
+	deleteCardEvent,
 	successCreatingCard,
+	successCreatingCardEvent,
 	updateCardDragDrop,
 	updateListDragDrop,
 	setCardTitle,

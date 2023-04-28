@@ -8,8 +8,11 @@ import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import { useNavigate } from "react-router";
 import Drawer from '../../Drawer';
 import Footer from '../../Footer';
+import { loadUser } from "../../../Services/userService";
+import { useParams } from 'react-router-dom';
 
 const Boards = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pending, boardsData } = useSelector((state) => state.boards);
@@ -39,7 +42,7 @@ const Boards = () => {
               
    
         <Navbar searchString={searchString} setSearchString={setSearchString} />
-        <Drawer/>
+        <Drawer id={id}/>
         <Wrapper>
           <Title>Your Boards</Title>
           {!pending &&

@@ -5,10 +5,12 @@ import SearchBar from './SearchBar';
 import { xs } from '../BreakPoints';
 import ProfileBox from './ProfileBox';
 import { useNavigate } from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
 import BlurOnIcon from '@mui/icons-material/BlurOn'
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
+import { MenuItem } from '@mui/material';
+import Link from '@mui/material/Link'
 
 const Container = styled.div`
 	height: 3rem;
@@ -81,9 +83,11 @@ const DropdownContainer = styled.div`
   };
 }
 
+
+
 const Navbar = (props) => {
 	const navigate = useNavigate();
-
+	const id = useParams();
 	return (
 		<Container>
 			<LeftSide>
@@ -107,6 +111,15 @@ const Navbar = (props) => {
 				<DropdownContainer>
 					<DropdownMenu title='Your Boards' />
 				</DropdownContainer>
+				<Link 
+				onClick={() => {
+				navigate(`/calendar/${id}`)
+					}}
+				underline="hover"
+				hover
+				>Calendar</Link>
+				<Link to="/calendar" underline="none" >Calendar</Link>
+				<Link to="/calendar" underline="none" >Calendar</Link>
 			</LeftSide>
 			<RightSide>
 				<SearchBar searchString={props.searchString} setSearchString={props.setSearchString} />

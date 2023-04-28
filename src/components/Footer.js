@@ -1,50 +1,34 @@
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { maxWidth } from '@mui/system';
+import React from "react";
+import { Box, Container, Grid, Typography } from "@mui/material";
 
-function Copyright() {
-  return (
-    <Typography align ="center" variant="body2" color="white">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-export default function Footer() {
+const Footer = () => {
   return (
     <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '50vh',
-    }}
-  >
-    <Box sx={{   py: 3,
-      px: 2,
-      mt: 'auto',ml:-16, bgcolor: '#1E1D1D', p: 6, width: '103rem' }} component="footer">
-    <Typography color="white" variant="h6" align="center" gutterBottom>
-      Footer
-    </Typography>
-    <Typography
-      variant="subtitle1"
-      align="center"
-      color="white"
-      component="p"
-   
+      sx={{
+        width: "100%",
+        height: "auto",
+        backgroundColor: "grey",
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
+        marginTop:"29rem"
+      }}
     >
-      Something here to give the footer a purpose!
-    </Typography>
-    <Copyright />
-  </Box>
-  </Box>
+      <Container maxWidth="lg">
+        <Grid container direction="column" alignItems="center">
+          <Grid item xs={12}>
+            <Typography color="black" variant="h5">
+              React Starter App
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography color="textSecondary" variant="subtitle1">
+              {`${new Date().getFullYear()} | React | Material UI | React Router`}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
-}
+};
+
+export default Footer;

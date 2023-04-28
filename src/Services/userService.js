@@ -104,7 +104,7 @@ export const loadUser = async (dispatch) => {
 export const getUserData = async (userId,dispatch) => {
   dispatch(setLoading(true));
   try {
-    const res = await axios.get(baseUrl + "/" + userId);
+    const res = await axios.get(baseUrl + "get-user/" + userId);
       dispatch(loadSuccess({user: res.data}));    
     setTimeout(() => {
       dispatch(setLoading(false));      
@@ -123,57 +123,6 @@ export const getUserData = async (userId,dispatch) => {
 };
 
 
-export const inviteUserToBoard = async (boardId, email, dispatch) => {
-  dispatch(fetchingStart());
-
-  if (!email) {
-    dispatch(
-      openAlert({
-        message: "Please provide an email to invite",
-        severity: "warning",
-      })
-    );
-    dispatch(fetchingFinish());
-    return null;
-  }
-
-  try {
-    // check if user with email exists
-    const res = await axios.post(baseUrl + "get-user-with-email", { email });
-    const user = res.data;
-
-    if (!user) {
-      // if user doesn't exist, register and send invite
-      const inviteRes = await axios.post(baseUrl + "invite", { boardId, email });
-      dispatch(
-        openAlert({
-          message: inviteRes.data.message,
-          severity: "success",
-        })
-      );
-    } else {
-      // if user exists, send invite
-      const inviteRes = await axios.post(baseUrl + "invite", { boardId, userId: user._id });
-      dispatch(
-        openAlert({
-          message: inviteRes.data.message,
-          severity: "success",
-        })
-      );
-    }
-  } catch (error) {
-    dispatch(
-      openAlert({
-        message: error?.response?.data?.errMessage
-          ? error.response.data.errMessage
-          : error.message,
-        severity: "error",
-      })
-    );
-  }
-
-  dispatch(fetchingFinish());
-};
 
 
 export const getUserFromEmail = async (email, dispatch) => {
@@ -209,7 +158,30 @@ export const getUserFromEmail = async (email, dispatch) => {
   }
 
 };
-
+export const updateUser = async (data, dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const res = await axios.put(baseUrl + "update-user", data);
+    dispatch(loadSuccess({ user: res.data }));
+    dispatch(
+      openAlert({
+        message: "User profile updated successfully",
+        severity: "success",
+      })
+    );
+  } catch (error) {
+    dispatch(
+      openAlert({
+        message: error?.response
+?.data?.errMessage
+? error.response.data.errMessage
+: error.message,
+severity: "error",
+})
+);
+}
+dispatch(setLoading(false));
+};
 
 // export const getUserProfile = async (dispatch) => {
 //   dispatch(setLoading(true));
