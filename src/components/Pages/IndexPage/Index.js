@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import IndexNav from "../../IndexNav";
+
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -16,7 +17,7 @@ import {
 const Index = () => {
   let navigate = useNavigate();
   useEffect(() => {
-    document.title = "Logo"
+    document.title = "KanbanGo"
   }, [])
   return (
     <>
@@ -25,7 +26,7 @@ const Index = () => {
         <Content>
           <LeftSide>
             <LeftWrapper>
-              <Title>Improve your Productivity with Logo</Title>
+              <Title>Improve your Productivity with KanbanGo </Title>
               <Text>
               Manage, Collab and visualise your projects right now
               </Text>
@@ -35,7 +36,7 @@ const Index = () => {
             </LeftWrapper>
           </LeftSide>
           <RightSide>
-            <SvgItem src="https://img.freepik.com/free-vector/business-people-scheduling-work-tasks_1262-19720.jpg?w=740&t=st=1679315575~exp=1679316175~hmac=4fb20dbacc0496a757f0aa7e99b22b8d945fa8493ced24621ab8f472e56e17b5" />
+            <SvgItem src="https://o.remove.bg/downloads/d5d37e18-e04a-47f8-9583-b26d39f8cfae/7505326-removebg-preview.png" />
           </RightSide>
         </Content>
       </Container>

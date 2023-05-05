@@ -21,11 +21,13 @@ const ProfileForm = () => {
     e.preventDefault();
     try {
       await updateUser(id, { name: nameValue, surname: surnameValue, email: emailValue, password: passwordValue });
+      dispatch({ type: "UPDATE_USER_SUCCESS", payload: { name: nameValue, surname: surnameValue, email: emailValue } });
       alert('User updated successfully!');
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
   };
+  
 
   return (
     <Card>

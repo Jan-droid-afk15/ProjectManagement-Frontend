@@ -5,14 +5,13 @@ import LoadingScreen from "../../LoadingScreen";
 import Drawer from "../../Drawer";
 import Footer from "../../Footer";
 import Container from "@mui/material/Container";
-import ProfileDetails from "./ProfileDetails";
-import ProfileForm from "./ProfileForm";
-import Grid from "@mui/material/Grid"
+import Grid from "@mui/material/Grid";
+import EditUser from '../../Modals/ProfileModal/EditUser'
+import { loadUser } from "../../../Services/userService";
 
 const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
   const { userInfo, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -31,40 +30,20 @@ const Profile = () => {
   if (loading) {
     return <LoadingScreen />;
   }
-  function loadUser(id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const user = {
-          id: id,
-          name: "John",
-          surname: "Doe",
-          email: "johndoe@example.com",
-          color: "#3f51b5",
-        };
-        resolve(user);
-      }, 1000);
-    });
-  }
-  
+
   return (
     <>
       <Drawer id={id} />
-      <Container sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+      <Container sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={4}>
-            <ProfileDetails userInfo={userInfo} />
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <ProfileForm id={id} userInfo={userInfo} />
+            <EditUser user={userInfo} />
           </Grid>
         </Grid>
       </Container>
       <Footer />
-      
     </>
   );
-  
 };
 
 export default Profile;
-

@@ -31,7 +31,7 @@ const Boards = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    document.title = "Boards | Logo"
+    document.title = "Boards | Kanban Go"
   }, [])
 
   return (
@@ -42,7 +42,7 @@ const Boards = () => {
               
    
         <Navbar searchString={searchString} setSearchString={setSearchString} />
-        <Drawer id={id}/>
+  
         <Wrapper>
           <Title>Your Boards</Title>
           {!pending &&

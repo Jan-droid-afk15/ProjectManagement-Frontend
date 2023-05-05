@@ -5,7 +5,7 @@ import boardsReducer from "./Slices/boardsSlice";
 import boardReducer from "./Slices/boardSlice";
 import listReducer from "./Slices/listSlice";
 import cardReducer from "./Slices/cardSlice";
-import eventsReducer from "./Slices/eventSlice";
+import eventReducer from "./Slices/eventSlice";
 
 const Store = configureStore({
     reducer : {
@@ -15,7 +15,7 @@ const Store = configureStore({
         board: boardReducer,
         list: listReducer,
         card: cardReducer,
-        events: eventsReducer,
+        event: eventReducer,
     },
 }) 
 export default Store;

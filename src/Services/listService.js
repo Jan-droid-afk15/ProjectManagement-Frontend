@@ -9,13 +9,10 @@ import {
   successCreatingCardEvent, 
   deleteCardEvent
 } from '../Redux/Slices/listSlice';
-import {
-  successCreatingEvent,
-  successDeletingEvent
-} from '../Redux/Slices/eventSlice';
+
 
 const baseUrl = 'http://localhost:3030/card';
-const eventRoute = 'http://localhost:3030/event';
+
 export const createCard = async (title, listId, boardId, dispatch) => {
 	dispatch(setLoading(true));
 	try {
@@ -51,41 +48,45 @@ export const cardDelete = async(listId,boardId,cardId,dispatch)=>{
 export const createCardEvent = async (title, listId, boardId, eventId, dispatch) => {
   dispatch(setLoading(true));
   try {
-    const updatedList = await axios.post(baseUrl + '/create-event', {
+    // Create a new card with title
+    const newCard = await axios.post(baseUrl + '/create', {
       title: title,
-      listId: listId,
       boardId: boardId,
+      listId: listId,
+    });
+    const cardId = newCard.data.id;
+    // Create an event for the new card
+    const updatedList = await axios.post(baseUrl + `/${boardId}/${listId}/${cardId}/event/create`, {
+      title: title,
       eventId: eventId,
     });
     dispatch(
       successCreatingCardEvent({
-        listId: updatedList.data.listId,
-        card: updatedList.data.card,
+        listId: listId, 
+        updatedList: updatedList.data,
+        cardId: cardId,
         eventId: eventId,
       })
     );
-    dispatch(successCreatingEvent(updatedList.data.event));
-  } catch (error) {
-    dispatch(openAlert(error.message));
-  } finally {
     dispatch(setLoading(false));
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch(
+      openAlert({
+        message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
+        severity: 'error',
+      })
+    );
   }
 };
 
-console.log(createCard)
-console.log(createCardEvent.successCreatingCardEvent)
 
-export const cardDeleteEvent = (listId, boardId, cardId, eventId) => async (dispatch) => {
+
+
+export const cardDeleteEvent = async(listId, boardId, cardId, eventId, dispatch) => {
   try {
-    // Wait for deleteCard to complete before making the API call
-    dispatch(deleteCardEvent({ listId, cardId, eventId }));
+    await dispatch(deleteCardEvent({ listId, cardId, eventId }));
     await axios.delete(baseUrl + "/" + boardId + "/" + listId + "/" + cardId + "/" + eventId + "/delete-event");
-
-    // Delete the corresponding event from the calendar
-    const deletedEvent = {
-      id: cardId
-    };
-    dispatch(successDeletingEvent(deletedEvent));
   } catch (error) {
     dispatch(
       openAlert({
@@ -95,8 +96,9 @@ export const cardDeleteEvent = (listId, boardId, cardId, eventId) => async (disp
     );
   }
 };
-console.log(cardDelete)
-console.log(cardDeleteEvent.deleteCardEvent)
+
+
+
 // import axios from 'axios';
 // import {
 //   openAlert

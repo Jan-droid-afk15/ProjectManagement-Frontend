@@ -14,7 +14,7 @@ import Profile from "./components/Pages/ProfilePage/Profile";
 import Calendar from "./components/Pages/CalendarPage/Calendar";
 import Dashboard from "./components/Pages/DashboardPage/Dashboard";
 import NotFoundPage from "./components/Pages/NotFoundPage";
-import TableComponent from "./components/TablePage/TableComponent";
+import TableComponent from "./components/Pages/TablePage/TableComponent";
 
 const App = () => {
   useEffect(() => {

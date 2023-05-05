@@ -1,5 +1,6 @@
 
 import Navbar from '../../Navbar';
+import Drawer from '../../Drawer';
 import React, { useEffect, useState } from 'react';
 import TopBar from './BoardComponents/TopBar/TopBar';
 import * as style from './Styled';
@@ -65,8 +66,8 @@ const Board = () => {
   return (
     <>
 
-      <Navbar searchString={searchString} setSearchString={setSearchString} />
-
+      <Navbar id={id} searchString={searchString} setSearchString={setSearchString} />
+    
       <style.Container
         isImage={isImage}
         bgImage={isImage ? backgroundImageLink.split('?')[0] : backgroundImageLink}

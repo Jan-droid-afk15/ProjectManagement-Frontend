@@ -216,12 +216,13 @@ export default function MiniDrawer(props) {
         <Toolbar >
     
           <IconButton
-            color="black"
+            color="white"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{    
-              ml:-16,
+            sx={{
+              mb:2,    
+              ml:-19,
               marginRight: 5,
               ...(open && { display: "none" }),
             }}
@@ -231,10 +232,6 @@ export default function MiniDrawer(props) {
            
           </IconButton>
           
-          <Typography style={{textDecoration: "none"}}color="black" component={Link} to='/' sx={{ mr: 5 }}>
-        
-            LOGO
-          </Typography>
 
 
           {/* Account Icon Disappears if logged out, checks if user is logged in then appears */}
@@ -251,9 +248,9 @@ export default function MiniDrawer(props) {
         }}
      >
         <DrawerHeader style={{backgroundColor: "#1E1D1D"}} >
-          <Typography sx={{ mr: 4}}>
-            <NetworkCheckIcon sx={{ mr: 0.5 }} />
-           LOGO
+          <Typography sx={{ mr: 1.5}}>
+            <NetworkCheckIcon sx={{ mr: 0.2 }} />
+           KanbanGo
           </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (

@@ -32,8 +32,8 @@ const listSlice = createSlice({
 		successCreatingCardEvent: (state, action) => {
 			const { listId, card, eventId } = action.payload;
 			state.allLists = state.allLists.map((list) => {
-			  if (list._id === listId) {
-				list.cards = [...list.cards, card];
+			  if (list._id === action.payload.listId) {
+				return action.payload.updatedList;
 			  }
 			  return list;
 			});
@@ -47,7 +47,7 @@ const listSlice = createSlice({
 				allDay: true,
 			  };
 			  state.allLists = state.allLists.map((list) => {
-				if (list._id === listId) {
+				if (list._id ===  action.payload.listId) {
 				  list.events = [...list.events, newEvent];
 				}
 				return list;
@@ -94,6 +94,24 @@ const listSlice = createSlice({
 				return list;
 			});
 		},
+		setCardEventTitle: (state, action) => {
+			const { listId, cardId, title } = action.payload;
+			state.allLists = state.allLists.map((list) => {
+			  if (list._id === listId) {
+				list.cards = list.cards.map((card) => {
+				  if (card._id === cardId) {
+					card.title = title;
+					const eventIndex = list.events.findIndex((event) => event.id === cardId);
+					if (eventIndex !== -1) {
+					  list.events[eventIndex].title = title;
+					}
+				  }
+				  return card;
+				});
+			  }
+			  return list;
+			});
+		  },
 		updateListTitle: (state, action) => {
 			const { listId, title } = action.payload;
 			state.allLists = state.allLists.map((list) => {
@@ -411,6 +429,7 @@ export const {
 	updateCardDragDrop,
 	updateListDragDrop,
 	setCardTitle,
+	setCardEventTitle,
 	updateListTitle,
 	updateMemberOfCard,
 	deleteMemberOfCard,

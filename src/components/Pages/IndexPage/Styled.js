@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { lg, sm } from "../../../BreakPoints";
 
 export const Container = styled.div`
-  background: linear-gradient(rgb(250, 250, 250), rgb(255, 255, 255)) no-repeat;
+  background: linear-gradient(rgb(255,255,255
+    ),rgb(255,255,255), rgb(201,239,199)), rgba(255,255,255) no-repeat;
   color: rgb(9, 30, 66);
   width: 100%;
   display: flex;
@@ -71,11 +72,12 @@ export const Button = styled.button`
   width: fit-content;
   border-radius: 0.4rem;
   padding: 0.75rem 2rem;
-  color: white;
+  color: black;
   border: none;
   cursor: pointer;
   &:hover {
-    background-color: #0952cc;
+    background-color: #50A060;
+    color:white;
   }
 
   ${lg({

@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import { MenuItem } from '@mui/material';
 import Link from '@mui/material/Link'
+import { lg } from "../BreakPoints";
 
 const Container = styled.div`
 	height: 3rem;
@@ -54,6 +55,15 @@ const RightSide = styled.div`
 	justify-content: flex-end;
 `;
 
+const Icon = styled.img`
+width: 25px;
+height: 25px;
+margin-left: 2rem;
+${lg({
+  marginLeft: "0",
+})}
+`;
+
 const LogoContainer = styled.div`
 	display: flex;
 	align-items: center;
@@ -87,39 +97,47 @@ const DropdownContainer = styled.div`
 
 const Navbar = (props) => {
 	const navigate = useNavigate();
-	const id = useParams();
+	const {id} = useParams();
 	return (
 		<Container>
 			<LeftSide>
 				<LogoContainer>
 				<Tooltip disableHoverListener title="Add">
-            	<Button>
-       
-					<BlurOnIcon
-						onClick={() => {
+            	<Button onClick={() => {
 							navigate('/boards');
-						}}
-						sx={{
-							color: 'white',
-							
-						}}
-						
-					/>
+						}}>				
+				<Icon src="kanbango-website-favicon-color (1).png"/>
 					</Button>
 			   </Tooltip>
 				</LogoContainer>
+				
 				<DropdownContainer>
 					<DropdownMenu title='Your Boards' />
 				</DropdownContainer>
+				<Link 
+				onClick={() => {
+				navigate(`/get-user/${id}`)
+					}}
+				underline="hover"
+				hover
+				color="white"
+				>Profile</Link>
+									<Link 
+				onClick={() => {
+				navigate(`/dashboard/${id}`)
+					}}
+				underline="hover"
+				hover
+				color="white"
+				>Dashboard</Link>
 				<Link 
 				onClick={() => {
 				navigate(`/calendar/${id}`)
 					}}
 				underline="hover"
 				hover
+				color="white"
 				>Calendar</Link>
-				<Link to="/calendar" underline="none" >Calendar</Link>
-				<Link to="/calendar" underline="none" >Calendar</Link>
 			</LeftSide>
 			<RightSide>
 				<SearchBar searchString={props.searchString} setSearchString={props.setSearchString} />

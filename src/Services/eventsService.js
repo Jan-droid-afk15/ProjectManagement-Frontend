@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   setLoading,
-  successFetchingEvents,
+  setEvent,
   updateEventTitle,
   updateEventDescription,
   successCreatingEvent,
@@ -22,7 +22,7 @@ export const getEvents = async (boardId, dispatch) => {
     const cardRes = await axios.get("http://localhost:3030/card/" + boardId);
     dispatch(cardSlice.actions.successFetchingCards(cardRes.data));
 
-    dispatch(successFetchingEvents());
+    dispatch(setEvent());
     setTimeout(() => {
       dispatch(setLoading(false));
     }, 300);
@@ -40,23 +40,17 @@ export const getEvents = async (boardId, dispatch) => {
 };
 
 export const createEvent = async (
-  title,
-  description,
-  startDate,
-  endDate,
-  dueTime,
-  members,
+  boardId,
+  listId,
+  cardId,
   dispatch
 ) => {
   dispatch(setLoading(true));
   try {
     const res = await axios.post(baseUrl + "/create", {
-      title: title,
-      description: description,
-      startDate: startDate,
-      endDate: endDate,
-      dueTime: dueTime,
-      members: members,
+      boardId,
+      listId,
+      cardId,
     });
     dispatch(successCreatingEvent(res.data));
     dispatch(setLoading(false));
@@ -113,7 +107,7 @@ export const updateEvent = async (
 export const deleteEvent = async (eventId,cardId, dispatch) => {
   dispatch(setLoading(true));
   try {
-    await axios.delete(baseUrl + `/${cardId}` + `/${eventId}`);
+    await axios.delete(baseUrl + `/${cardId}`  `/${eventId}`);
     dispatch(successDeletingEvent(eventId));
     dispatch(setLoading(false));
   } catch (error) {

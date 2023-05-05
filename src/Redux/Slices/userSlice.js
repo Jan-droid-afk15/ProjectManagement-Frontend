@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-
 export const updateUserDetails = createAsyncThunk(
   "user/updateUserDetails",
   async ({ id, name, surname, email, password }, thunkAPI) => {
@@ -13,7 +12,6 @@ export const updateUserDetails = createAsyncThunk(
   }
 );
 
-
 const initialState = {
   userInfo: null,
   userId: null, 
@@ -21,19 +19,15 @@ const initialState = {
   pending: true,
   loading: false,
   token: localStorage.getItem("token"),
-  
 };
-
 
 export const userSlice = createSlice({
   name: "user",
-
   initialState,
   reducers: {
     setLoading: (state, action) => {
-			state.loading = action.payload;
-		},
-
+      state.loading = action.payload;
+    },
     registrationStart: (state) => {
       state.pending = true;
     },
@@ -50,7 +44,6 @@ export const userSlice = createSlice({
       state.token = action.payload.user.token;
       localStorage.setItem("token", action.payload.user.token);
       state.userId = action.payload.user._id; 
-
     },
     loginFailure: (state) => {
       state.pending = false;
@@ -86,19 +79,19 @@ export const userSlice = createSlice({
     },
     updateUser: (state, action) => {
       state.userInfo = action.payload;
+    }
+  },
+  extraReducers: {
+    [updateUserDetails.pending]: (state) => {
+      state.loading = true;
     },
-    extraReducers: {
-      [updateUserDetails.pending]: (state) => {
-        state.loading = true;
-      },
-      [updateUserDetails.fulfilled]: (state, action) => {
-        state.loading = false;
-        state.userInfo = action.payload;
-      },
-      [updateUserDetails.rejected]: (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      },
+    [updateUserDetails.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.userInfo = action.payload;
+    },
+    [updateUserDetails.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });

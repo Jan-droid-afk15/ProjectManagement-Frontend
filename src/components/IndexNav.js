@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { lg } from "../BreakPoints";
-import BlurOnIcon from '@mui/icons-material/BlurOn';
+
 import { Typography } from "@mui/material";
 const Container = styled.nav`
   position: fixed;
@@ -23,10 +23,12 @@ const Container = styled.nav`
 `;
 
 const Icon = styled.img`
-  margin-left: 1rem;
-  ${lg({
-    marginLeft: "0",
-  })}
+width: 30px;
+height: 30px;
+margin-left: 2rem;
+${lg({
+  marginLeft: "0",
+})}
 `;
 
 const RightSide = styled.div`
@@ -38,18 +40,24 @@ const RightSide = styled.div`
 const Link = styled.a`
   text-decoration: underline;
   cursor: pointer;
-  color: #0952cc;
+  color: #50A060;
+  &:hover {
+    color: 
+    #C9EFC7;
+  }
 `;
 
 const Button = styled.button`
-  background-color: #0065ff;
+  background-color: 
+  #50A060;
   border-radius: 0.4rem;
   padding: 0.5rem 1rem;
   color: white;
   border: none;
   cursor: pointer;  
   &:hover {
-    background-color: #0952cc;
+    background-color: 
+    #C9EFC7;
   }
 `;
 
@@ -57,16 +65,16 @@ const IndexNav = () => {
   let navigate = useNavigate();
   return (
     <Container>
-       <BlurOnIcon sx={{
-      ml: "1rem" ,
+       <Icon src="kanbango-website-favicon-color (1).png" sx={{
+        ml: "2rem" ,
    
       }}/>
       <Typography sx={{
-      ml: "-78rem"}} >
-     GoDu
+      ml: "-72rem"}} >
+     KanbanGo
       </Typography>
       <RightSide>
-        <Link onClick={()=>navigate("/login")}>Log in</Link>
+        <Button onClick={()=>navigate("/login")}>Log in</Button>
         <Button onClick={()=>navigate("/register")}>Sign up</Button>
       </RightSide>
     </Container>

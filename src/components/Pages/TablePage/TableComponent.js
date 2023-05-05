@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBoard } from "../../Services/boardsService";
-import { getBoards } from "../../Services/boardsService";
-import { getLists } from "../../Services/boardService";
+import { getBoard } from "../../../Services/boardsService";
+import { getBoards } from "../../../Services/boardsService";
+import { getLists } from "../../../Services/boardService";
 import { useParams } from "react-router-dom";
-import Drawer from "../Drawer";
-import Footer from "../Footer";
+import Drawer from "../../Drawer";
+import Footer from "../../Footer";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
@@ -21,7 +21,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import LoadingScreen from "../LoadingScreen";
+import LoadingScreen from "../../LoadingScreen";
 import { Grid, Paper } from "@mui/material";
 
 const TableComponent = () => {

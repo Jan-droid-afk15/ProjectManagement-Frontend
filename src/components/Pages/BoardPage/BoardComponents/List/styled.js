@@ -137,7 +137,41 @@ export const AddTitleCardContainer = styled.div`
 	gap: 0.5rem;
 `;
 
+export const AddTitleCardEventContainer = styled.div`
+	box-sizing: border-box;
+	margin-top: 0.2rem;
+	padding: 0rem 0.2rem;			
+	min-width: 14.7rem;
+	width:100%;
+	display: flex;
+	flex-flow: column wrap;
+	gap: 0.5rem;
+`;
+
 export const TitleNewCardInput = styled.textarea`
+	border: 2px solid transparent;
+	border-radius:3px;
+	resize: none;
+	font-size: 0.75rem;
+	color: #000;
+	padding: 0.4rem 0.5rem;
+	min-height: 4rem;
+	max-height: 7rem;	
+	height: ${(props) => props.height};
+	transition: 500ms ease-in;
+	outline: none;
+	&:focus{
+		border: 2px solid #0079bf;
+	}
+	&::placeholder {
+		font-weight: 600;
+		color: rgba(0,0,0,0.5);
+	}
+`;
+
+
+
+export const TitleNewCardEventInput = styled.textarea`
 	border: 2px solid transparent;
 	border-radius:3px;
 	resize: none;

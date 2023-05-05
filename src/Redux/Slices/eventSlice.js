@@ -8,7 +8,7 @@ const initialState = {
   endDate: '',
   dueTime: '',
   members: [],
-  cards: [],
+  card: {},
   completed: false,
   loading: true,
  
@@ -21,7 +21,7 @@ const eventSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    successFetchingEvent: (state, action) => {
+    setEvent: (state, action) => {
       state.id = action.payload._id;
       state.title = action.payload.title;
       state.description = action.payload.description;
@@ -60,17 +60,17 @@ const eventSlice = createSlice({
       state.dueTime = action.payload;
     },
     successCreatingEvent: (state, action) => {
-      state.cards.push(action.payload);
+      state.card.push(action.payload);
     },
     successDeletingEvent: (state, action) => {
-      state.cards = state.cards.filter((card) => card.id !== action.payload.id);
+      state.card = state.card.filter((card) => card.id !== action.payload.id);
     },
   },
 });
 
 export const {
   setLoading,
-  successFetchingEvent,
+  setEvent,
   updateTitle,
   setActivityLoading,
   updateMembers,
